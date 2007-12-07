@@ -1,0 +1,11 @@
+#summary We'll try and keep this page up to date with what's going on with RLViz
+#labels Featured
+
+= Some Recent Changes = 
+  * Added versioning to all projects in the Manifest
+  * Added compile-version info to all projects that use vizlib
+  * Added a Utility class rlVizLib.rlVizCore
+  * rlVizCore can tell you what runtime version of RLViz you're using
+  * rlVizCore can tell you what compile-time version was used to create any class (provided its in a jar with correct manifest info)
+  * Env/Agent Shells now spout a warning if an agent/env was compiled with a RLVizLib version other than the runtime version
+  * Env/Agent Shells now spout a warning if THEY were compiled with a RLVizLib version other than the current runtime version
