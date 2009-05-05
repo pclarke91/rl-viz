@@ -1,13 +1,37 @@
-#summary One-sentence summary of this page.
+#summary This page explains how to use the external CPPEnvLoader with your C/C++ environment so it can be used with RL-Viz.
 
 = Introduction =
 
-Add your content here.
+This is an advanced and EXPERIMENTAL topic.  And this tutorial has been written somewhat quickly to help out one particular person who was asking about how to do this.  As such, please send feeback/fixes/bugs etc to btanner@rl-community.org so this document can be improved over time.
+
+= Purpose =
+RL-Viz (with the help of AgentShell and EnvironmentShell) lets you graphically or programatically load environments and agents at runtime, and to configure their parameters at the same time.  There are plenty of examples of this (although not well explained) in the RL-Library and the RL-Competition.  Most people will be most familiar with RLVizApp, which is the graphical Java application used in the competition and the library.  You might know it as "rundemo.bash" or "guiTrainerJava" from the competition software (2008-2009).
+
+RLVizApp can either accept connections made from vanilla RL-Glue environments and agents that connect to the rl_glue(.exe) executable socket server (as normal), or by a proxy called an agent or environment _shell_.  These shells themselves are valid RL-Glue environments and agents, with extra functionality.  The shells listen for certain commands through env_message and agent_message, and if they receive certain commands they will look to the hard disk for environments and agents that have been stored in JAR files (Java) or dylib/so files (C/C++).
+
+The JAR loading works out of the box when you have AgentShell.jar, EnvironmentShell.jar, and RLVizLib.jar.  The dylib/so loading needs some extra configuration steps because it relies on the Java Native Interface (JNI) which requires something to be compiled on your machine (JAR files are portable, JNI is not).
+
+= Compiling the External CPP Environment Loader =
+
+<code language="bsh">
+#Check out RL-Viz from Google Code (sorry now downloads available yet)
+svn checkout http://rl-viz.googlecode.com/svn/trunk/ rl-viz-read-only
+
+#Change to the appropriate directory
+cd rl-viz-read-only/projects/externalLoaders/CPPEnvLoader
+
+#Build the loader, place it in rl-viz-read-only/system/dist with the other built components
+make
+</code>
+
+This might not work for you.  It requires JDK to be installed, and certain paths be set correctly.  The makefile needs to find javah, and also the JNI headers.  There are some instructions in the Makefile that will explain what you might need to do.  On Ubuntu 9.04, I just had to do this:
+<code language="bash">
+#Your mileage may vary
+JAVA_HOME=/usr/lib/jvm/java-6-openjdk/include/ make
+</code>
+
+Play around, figure it out, and make sure you have CPPENV.dylib in your rl-viz-read-only/system/dist directory.  Probably we should have a better name, and it shouldn't be .dylib on all platforms, but I'll get to that later.
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
