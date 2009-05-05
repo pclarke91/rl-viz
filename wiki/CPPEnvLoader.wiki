@@ -49,3 +49,30 @@ This should build you (depending on platform) SampleMinesEnvironment.{dylib,so} 
 
 = Running RL-Viz to load these dynamic components =
 
+<code language="bsh">
+#Go into the dist folder
+cd rl-viz-read-only/system/dist
+
+#Execute this gross command
+java -enableassertions -Xmx128M -jar RLVizApp.jar agent-environment-jar-path=$(pwd)/../../examples/CPPEnvLoading/mines-sarsa-c-sharedlibrary/ list-agents=true list-environments=true env-viz=true agent-viz=true local-glue=true 
+</code>
+
+You should now have an RL-Viz window popped up with the SampleMinesEnvironment in the drop-down list of environments.  
+
+*NOTE:* There will be no agents because the CPPAgentLoader isn't working yet.
+
+You might want an agent though.  If you do, I suggest you download the latest Epsilon Greedy Tile-Coding Sarsa Lambda agent from rl-library:
+<code language="bsh">
+wget http://rl-library.googlecode.com/files/EpsilonGreedyTileCodingSarsaLambda-Java-R18.tar.gz
+
+mv EpsilonGreedyTileCodingSarsaLambda-Java-R18.tar.gz ../../examples/CPPEnvLoading/mines-sarsa-c-sharedlibrary/
+</code>
+
+Now you can run the gross line again to start RL-Viz and you should be able to choose/configure the agent from the list and run your graphical experiment.
+
+= Next Steps =
+This tutorial is brief and doesn't touch on the finer parts of writing programmatic code to load these environments and use them in a more traditional experiment.
+
+It also doesn't explain how to add dynamic configuration capabilities (options for the drop-down boxes) like the agent has to your C/C++ environment.
+
+Please ask me if you care about these things and I'll write some more here :)
