@@ -54,7 +54,7 @@ This should build you (depending on platform) SampleMinesEnvironment.{dylib,so} 
 cd rl-viz-read-only/system/dist
 
 #Execute this gross command
-java -enableassertions -Xmx128M -jar RLVizApp.jar agent-environment-jar-path=$(pwd)/../../examples/CPPEnvLoading/mines-sarsa-c-sharedlibrary/ list-agents=true list-environments=true env-viz=true agent-viz=true local-glue=true 
+java -enableassertions -Xmx128M -jar RLVizApp.jar agent-environment-jar-path=$(pwd)/../../examples/CPPEnvLoading/mines-sarsa-c-sharedlibrary/ list-agents=true list-environments=true env-viz=true agent-viz=true local-glue=true do-cpp-loading=true
 </code>
 
 You should now have an RL-Viz window popped up with the SampleMinesEnvironment in the drop-down list of environments.  
@@ -63,9 +63,24 @@ You should now have an RL-Viz window popped up with the SampleMinesEnvironment i
 
 You might want an agent though.  If you do, I suggest you download the latest Epsilon Greedy Tile-Coding Sarsa Lambda agent from rl-library:
 <code language="bsh">
+cd ../../examples
+mkdir tutorial
+cd tutorial
 wget http://rl-library.googlecode.com/files/EpsilonGreedyTileCodingSarsaLambda-Java-R18.tar.gz
 
-mv EpsilonGreedyTileCodingSarsaLambda-Java-R18.tar.gz ../../examples/CPPEnvLoading/mines-sarsa-c-sharedlibrary/
+#This agent distribution keeps the JAR in a folder called "products"
+tar -zxvf EpsilonGreedyTileCodingSarsaLambda-Java-R18.tar.gz
+
+#It would also be good to have a visualizer so you can see what's happening
+wget http://rl-library.googlecode.com/files/GenericVisualizer-Java-R1255.tar.gz
+
+tar -zxvf GenericVisualizer-Java-R1255.tar.gz
+
+#Copy your environment shared library to products (use dylib instead of so on Mac)
+cp ../CPPEnvLoading/mines-sarsa-c-sharedlibrary/SampleMinesEnvironment.so products/
+
+#Use this different line to run RL-Viz from here
+java -enableassertions -Xmx128M -jar ../../system/dist/RLVizApp.jar agent-environment-jar-path=./products list-agents=true list-environments=true env-viz=true agent-viz=true local-glue=true do-cpp-loading=true
 </code>
 
 Now you can run the gross line again to start RL-Viz and you should be able to choose/configure the agent from the list and run your graphical experiment.
