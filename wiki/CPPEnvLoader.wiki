@@ -32,6 +32,20 @@ JAVA_HOME=/usr/lib/jvm/java-6-openjdk/include/ make
 
 Play around, figure it out, and make sure you have CPPENV.dylib in your rl-viz-read-only/system/dist directory.  Probably we should have a better name, and it shouldn't be .dylib on all platforms, but I'll get to that later.
 
+= Compiling an Environment =
+We have included an example agent and environment in the RL-Viz distribution.  To build it:
+<code language="bsh">
+cd rl-viz-read-only/examples/CPPEnvLoading/mines-sarsa-c-sharedlibrary
 
+#Depending on your platform
+make OSX
+#or
+make Linux
+</code>
 
+There is a more detailed explanation of this project and it's components in the README.txt file in the mines-sarsa-c-sharedlibrary directory.
+
+This should build you (depending on platform) SampleMinesEnvironment.{dylib,so} and SampleSarsaAgent{.dylib,so}.
+
+= Running RL-Viz to load these dynamic components =
 
