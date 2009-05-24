@@ -1,1 +1,3 @@
 #summary This page used to be an introduction about using the C/C++ Environment loader.  It has moved/absorbed into CPlusPlusLoaders.
+
+Please check out [CPlusPlusLoaders].
